@@ -30,7 +30,7 @@ But information about the type variable value for the class `UserDao`  is actual
 it using the method `inferTypeParameter` from the library.  
 ```kotlin
 abstract class Dao<E: Any> {
-  open val entityType = inferTypeParameter(Dao::class.java, "E", javaClass) as Class<E>
+  open val entityType: Class<E> = inferTypeParameterClass(Dao::class.java, "E", javaClass)
   fun getTypeName() = entityType.name
 }
 
