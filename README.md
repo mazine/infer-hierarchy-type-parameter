@@ -38,9 +38,9 @@ class GroupDao<Group>: Dao<Group>()
 ```
 
 ### Gradle and Maven
-[![Release](https://jitpack.io/v/User/Repo.svg)](https://jitpack.io/#mazine/infer-hierarchy-type-parameter)
+[![Release](https://jitpack.io/v/mazine/infer-hierarchy-type-parameter.svg)](https://jitpack.io/#mazine/infer-hierarchy-type-parameter)
 
-####Gradle
+#### Gradle
 ``` groovy
 repositories {
     jcenter()
@@ -51,7 +51,7 @@ dependencies {
 }
 ```
 
-####Maven
+#### Maven
 ``` xml
 <repositories>
     <repository>
