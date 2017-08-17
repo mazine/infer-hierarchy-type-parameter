@@ -1,4 +1,6 @@
 # Infer hierarchy type parameters 
+![Travis](https://travis-ci.org/mazine/infer-hierarchy-type-parameter.svg?branch=master)
+
 Java/Kotlin utility to infer actual type for inherited type parameters
 
 
