@@ -5,18 +5,28 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
     }
 }
 
+version='1.0-SNAPSHOT'
+group='com.github.mazine'
+
 apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'idea'
+apply plugin: 'io.codearte.nexus-staging'
+
+
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
-apply plugin: 'kotlin'
-apply plugin: 'idea'
-
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
 
 idea {
     project {
@@ -47,4 +57,72 @@ dependencies {
     testCompile 'com.google.truth:truth:0.31'
     testCompile 'junit:junit:4.12'
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+}
+
+
+if (project.hasProperty('release')) {
+    artifacts {
+        archives sourcesJar, javadocJar
+    }
+
+    apply plugin: 'signing'
+    apply plugin: 'maven'
+
+    // Signature of artifacts
+    signing {
+        sign configurations.archives
+    }
+
+    // OSSRH publication
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                // POM signature
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+                // Target repository
+                if (project.version.endsWith('-SNAPSHOT')) {
+                    repository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                        authentication(userName: ossrhUser, password: ossrhPassword)
+                    }
+                } else {
+                    repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+                        authentication(userName: ossrhUser, password: ossrhPassword)
+                    }
+                }
+                pom.project {
+                    name project.name
+                    description project.description
+                    packaging 'jar'
+                    url 'https://github.com/mazine/infer-hierarchy-type-parameter'
+
+                    scm {
+                        connection 'scm:git:https://github.com/mazine/infer-hierarchy-type-parameter.git'
+                        developerConnection 'scm:git:git@github.com:mazine/infer-hierarchy-type-parameter.git'
+                        url 'https://github.com/mazine/infer-hierarchy-type-parameter'
+                    }
+
+                    licenses {
+                        license {
+                            name 'Apache 2.0'
+                            url 'http://www.apache.org/licenses/'
+                            distribution 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = 'mazine'
+                            name = 'Maxim Mazin'
+                            email = 'maxim.mazin@gmail.com'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+nexusStaging {
+    username = ossrhUser
+    password = ossrhPassword
 }
