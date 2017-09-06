@@ -40,13 +40,12 @@ class GroupDao<Group>: Dao<Group>()
 ```
 
 ### Gradle and Maven
-[![Release](https://jitpack.io/v/mazine/infer-hierarchy-type-parameter.svg)](https://jitpack.io/#mazine/infer-hierarchy-type-parameter)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mazine/infer-hierarchy-type-parameter/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mazine/infer-hierarchy-type-parameter)
 
 #### Gradle
 ``` groovy
 repositories {
-    jcenter()
-    maven { url "https://jitpack.io" }
+    mavenCentral()
 }
 dependencies {
      compile 'com.github.mazine:infer-hierarchy-type-parameter:$version'
@@ -54,15 +53,7 @@ dependencies {
 ```
 
 #### Maven
-``` xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-```
-```
+```xml
 <dependency>
     <groupId>com.github.mazine</groupId>
     <artifactId>infer-hierarchy-type-parameter</artifactId>
