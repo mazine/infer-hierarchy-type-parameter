@@ -9,8 +9,13 @@ buildscript {
     }
 }
 
-version='1.0-SNAPSHOT'
-group='com.github.mazine'
+// To deploy new version use
+// 1. `./gradlew -Prelease=1.0.6  uploadArchives closeAndPromoteRepository`
+// 2. Go to https://oss.sonatype.org/#stagingRepositories
+// 3. Check https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.mazine%22%20AND%20a%3A%22infer-hierarchy-type-parameter%22
+
+version = project.hasProperty('release') && project.release != null && project.release.length() > 0 ? project.release : '1.0-SNAPSHOT'
+group = 'com.github.mazine'
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
