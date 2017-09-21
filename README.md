@@ -4,7 +4,7 @@
 Java/Kotlin utility to infer actual type for inherited type parameters
 
 
-## Usage 
+## Infer generic types for inherited classes 
 
 If you have a class hierarchy where base class has type parameters, and you need to access actual type
 defined in inherited class you may pass it to constructor or defined an abstract method for that. 
@@ -38,6 +38,22 @@ class UserDao<User>: Dao<User>()
 
 class GroupDao<Group>: Dao<Group>()
 ```
+
+## Check if a method overrides another method considering generics
+
+```kotlin
+open class Figure<A> {
+    open fun compare(that: A, p: String, i: Int) = false
+} 
+
+class Rectangle<B> : Figure<B>() {
+    override fun compare(that: B, o: String, i: Int) = true
+}
+
+fun check() {
+    Rectangle<*>::compare.isOverriding(Figure<*>::compare) // true
+}    
+``` 
 
 ### Gradle and Maven
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.mazine/infer-hierarchy-type-parameter/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.mazine/infer-hierarchy-type-parameter)
