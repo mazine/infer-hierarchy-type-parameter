@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.4'
+    ext.kotlin_version = '1.2.0'
     repositories {
         mavenCentral()
     }
@@ -10,7 +10,7 @@ buildscript {
 }
 
 // To deploy new version use
-// 1. `./gradlew -Prelease=1.0.6  uploadArchives closeAndPromoteRepository`
+// 1. `./gradlew -Prelease=1.1.0  uploadArchives closeAndPromoteRepository`
 // 2. Go to https://oss.sonatype.org/#stagingRepositories
 // 3. Check https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.mazine%22%20AND%20a%3A%22infer-hierarchy-type-parameter%22
 
